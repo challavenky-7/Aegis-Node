@@ -1,0 +1,10 @@
+# Arduino IDE build artifacts
+🗳️ Build/
+📦 *.hex
+📦 *.elf
+📦 *.bin
+
+# Local configurations
+.settings/
+.vscode/
+.DS_Store
