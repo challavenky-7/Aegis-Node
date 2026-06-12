@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <style>
+    .bg { fill: #0a0f1d; }
+    .title { font-family: 'Courier New', monospace; font-size: 24px; fill: #00d4ff; font-weight: bold; letter-spacing: 2px; }
+    .subtitle { font-family: 'Courier New', monospace; font-size: 14px; fill: #4a6278; letter-spacing: 1px; }
+    .section-title { font-family: 'Courier New', monospace; font-size: 16px; fill: #00ff9d; font-weight: bold; }
+    
+    /* Hardware Components */
+    .comp-box { fill: #0d1526; stroke: #1e2d4a; stroke-width: 2; rx: 8; }
+    .comp-label { font-family: 'Courier New', monospace; font-size: 14px; fill: #c9d6e3; font-weight: bold; }
+    .pin-lbl { font-family: 'Courier New', monospace; font-size: 11px; fill: #4a6278; }
+    .pin-num { font-family: 'Courier New', monospace; font-size: 11px; fill: #00d4ff; font-weight: bold; }
+    
+    /* Rails */
+    .vcc-rail { stroke: #ff3b5c; stroke-width: 2; stroke-dasharray: 4,4; fill: none; }
+    .gnd-rail { stroke: #7a8a9e; stroke-width: 2; fill: none; }
+    .vcc-lbl { font-family: 'Courier New', monospace; font-size: 12px; fill: #ff3b5c; font-weight: bold; }
+    .gnd-lbl { font-family: 'Courier New', monospace; font-size: 12px; fill: #7a8a9e; font-weight: bold; }
+    
+    /* Signal Lines */
+    .line-sda { stroke: #00d4ff; stroke-width: 2; fill: none; }
+    .line-scl { stroke: #ffaa00; stroke-width: 2; fill: none; }
+    .line-analog { stroke: #00ff9d; stroke-width: 2; fill: none; }
+    .line-digital { stroke: #e06c75; stroke-width: 2; fill: none; }
+    
+    /* Legend / Text */
+    .leg-txt { font-family: 'Courier New', monospace; font-size: 12px; fill: #c9d6e3; }
+    .flow-box { fill: #111a2e; stroke: #1e2d4a; stroke-width: 1.5; rx: 4; }
+    .flow-txt { font-family: 'Courier New', monospace; font-size: 12px; fill: #c9d6e3; }
+    .flow-crit { font-family: 'Courier New', monospace; font-size: 12px; fill: #ff3b5c; font-weight: bold; }
+  </style>
+
+  <rect width="100%" height="100%" class="bg" />
+
+  <text x="40" y="50" class="title">&#9670; AEGIS NODE v5.0 ARCHITECTURE &#9670;</text>
+  <text x="40" y="75" class="subtitle">System Hardware Interconnect &amp; Non-Blocking Execution Flow</text>
+  <line x1="40" y1="90" x2="760" y2="90" stroke="#1e2d4a" stroke-width="2" />
+
+  <text x="40" y="120" class="section-title">1. HARDWARE INTERCONNECT (I2C Bus &amp; Dedicated I/O)</text>
+  
+  <line x1="80" y1="150" x2="720" y2="150" class="vcc-rail" />
+  <text x="730" y="154" class="vcc-lbl">3.3V VCC</text>
+  
+  <line x1="80" y1="170" x2="720" y2="170" class="gnd-rail" />
+  <text x="730" y="174" class="gnd-lbl">GND</text>
+
+  <g transform="translate(280, 240)">
+    <rect width="240" height="260" class="comp-box" style="stroke: #00d4ff; stroke-width: 2.5;" />
+    <text x="120" y="30" class="comp-label" text-anchor="middle">ESP32 dev kit</text>
+    
+    <text x="10" y="80" class="pin-lbl">GPIO 21 (<tspan class="pin-num">SDA</tspan>)</text>
+    <text x="10" y="120" class="pin-lbl">GPIO 22 (<tspan class="pin-num">SCL</tspan>)</text>
+    <text x="10" y="170" class="pin-lbl">GPIO 34 (<tspan class="pin-num">ADC1</tspan>)</text>
+    <text x="10" y="210" class="pin-lbl">GPIO 25 (<tspan class="pin-num">DAC1</tspan>)</text>
+    
+    <text x="230" y="80" class="pin-lbl" text-anchor="end"><tspan class="pin-num">3V3</tspan> VIN</text>
+    <text x="230" y="110" class="pin-lbl" text-anchor="end"><tspan class="pin-num">GND</tspan></text>
+    
+    <rect x="130" y="215" width="100" height="35" class="flow-box" style="stroke: #00ff9d;" />
+    <text x="180" y="237" font-family="Courier New" font-size="11" fill="#00ff9d" font-weight="bold" text-anchor="middle">WiFi Active</text>
+  </g>
+
+  <line x1="490" y1="150" x2="490" y2="315" class="vcc-rail" />
+  <circle cx="490" cy="150" r="4" fill="#ff3b5c" />
+  <line x1="500" y1="170" x2="500" y2="345" class="gnd-rail" />
+  <circle cx="500" cy="170" r="4" fill="#7a8a9e" />
+
+  <g transform="translate(40, 240)">
+    <rect width="160" height="100" class="comp-box" />
+    <text x="80" y="25" class="comp-label" text-anchor="middle">SSD1306 OLED</text>
+    <text x="15" y="55" class="pin-lbl">VCC  GND  SDA  SCL</text>
+    <text x="15" y="75" class="pin-num">3V3   ⏚   P21  P22</text>
+    <rect x="15" y="83" width="130" height="10" fill="#000" rx="1"/>
+    <text x="20" y="91" font-family="Courier New" font-size="8" fill="#00d4ff">AEGIS NODE OK</text>
+  </g>
+  <line x1="55" y1="150" x2="55" y2="240" class="vcc-rail" /><circle cx="55" cy="150" r="3" fill="#ff3b5c" />
+  <line x1="75" y1="170" x2="75" y2="240" class="gnd-rail" /><circle cx="75" cy="170" r="3" fill="#7a8a9e" />
+  
+  <g transform="translate(40, 380)">
+    <rect width="160" height="100" class="comp-box" />
+    <text x="80" y="25" class="comp-label" text-anchor="middle">MAX30100</text>
+    <text x="15" y="55" class="pin-lbl">VCC  GND  SDA  SCL</text>
+    <text x="15" y="75" class="pin-num">3V3   ⏚   P21  P22</text>
+    <text x="80" y="92" font-family="Courier New" font-size="10" fill="#ff3b5c" text-anchor="middle">iREd: 27.1mA</text>
+  </g>
+  <line x1="65" y1="145" x2="65" y2="380" class="vcc-rail" /><circle cx="65" cy="150" r="3" fill="#ff3b5c" />
+  <line x1="85" y1="165" x2="85" y2="380" class="gnd-rail" /><circle cx="85" cy="170" r="3" fill="#7a8a9e" />
+
+  <g transform="translate(40, 520)">
+    <rect width="160" height="100" class="comp-box" />
+    <text x="80" y="25" class="comp-label" text-anchor="middle">MPU6050</text>
+    <text x="15" y="55" class="pin-lbl">VCC  GND  SDA  SCL</text>
+    <text x="15" y="75" class="pin-num">3V3   ⏚   P21  P22</text>
+  </g>
+  <line x1="72" y1="140" x2="72" y2="520" class="vcc-rail" /><circle cx="72" cy="150" r="3" fill="#ff3b5c" />
+  <line x1="92" y1="160" x2="92" y2="520" class="gnd-rail" /><circle cx="92" cy="170" r="3" fill="#7a8a9e" />
+
+  <path d="M 175,295 L 240,295 L 240,320 L 290,320" class="line-sda" />
+  <path d="M 175,435 L 240,435 L 240,295" class="line-sda" />
+  <path d="M 175,575 L 240,575 L 240,435" class="line-sda" />
+  <circle cx="240" cy="295" r="3" fill="#00d4ff" />
+  <circle cx="240" cy="435" r="3" fill="#00d4ff" />
+  <text x="215" y="290" class="pin-num" style="fill: #00d4ff;">SDA</text>
+
+  <path d="M 185,315 L 255,315 L 255,360 L 290,360" class="line-scl" />
+  <path d="M 185,455 L 255,455 L 255,315" class="line-scl" />
+  <path d="M 185,595 L 255,595 L 255,455" class="line-scl" />
+  <circle cx="255" cy="315" r="3" fill="#ffaa00" />
+  <circle cx="255" cy="455" r="3" fill="#ffaa00" />
+  <text x="265" y="310" class="pin-num" style="fill: #ffaa00;">SCL</text>
+
+  <g transform="translate(600, 240)">
+    <rect width="160" height="110" class="comp-box" />
+    <text x="80" y="25" class="comp-label" text-anchor="middle">MQ-2 SENSOR</text>
+    <text x="15" y="55" class="pin-lbl">VCC  GND  AOUT</text>
+    <text x="15" y="75" class="pin-num">3V3   ⏚    GPIO34</text>
+    <text x="15" y="98" font-family="Courier New" font-size="10" fill="#00ff9d">ADC1 (WiFi Safe)</text>
+  </g>
+  <line x1="615" y1="150" x2="615" y2="240" class="vcc-rail" /><circle cx="615" cy="150" r="3" fill="#ff3b5c" />
+  <line x1="635" y1="170" x2="635" y2="240" class="gnd-rail" /><circle cx="635" cy="170" r="3" fill="#7a8a9e" />
+  <path d="M 600,310 L 560,310 L 560,410 L 520,410" class="line-analog" />
+  <text x="565" y="395" class="pin-num" style="fill: #00ff9d;">AOUT</text>
+
+  <g transform="translate(600, 400)">
+    <rect width="160" height="100" class="comp-box" />
+    <text x="80" y="25" class="comp-label" text-anchor="middle">BUZZER</text>
+    <text x="15" y="55" class="pin-lbl">POS(+)   NEG(-)</text>
+    <text x="15" y="75" class="pin-num">GPIO25   GND</text>
+  </g>
+  <line x1="715" y1="170" x2="715" y2="400" class="gnd-rail" /><circle cx="715" cy="170" r="3" fill="#7a8a9e" />
+  <path d="M 600,450 L 520,450" class="line-digital" />
+  <text x="545" y="442" class="pin-num" style="fill: #e06c75;">DIGITAL</text>
+
+  <line x1="40" y1="660" x2="760" y2="660" stroke="#1e2d4a" stroke-width="2" />
+
+  <text x="40" y="690" class="section-title">2. RUNTIME EXECUTION SCHEDULE (No blocking delay calls)</text>
+
+  <rect x="40" y="720" width="720" height="60" class="comp-box" style="fill: #090e1a; stroke: #00d4ff;" />
+  <text x="50" y="755" font-family="Courier New" font-size="14" fill="#00d4ff" font-weight="bold">void loop()</text>
+
+  <g transform="translate(160, 730)">
+    <rect width="120" height="40" class="flow-box" style="stroke: #ff3b5c;" />
+    <text x="60" y="20" class="flow-txt" font-weight="bold" text-anchor="middle">pox.update()</text>
+    <text x="60" y="32" font-family="Courier New" font-size="9" fill="#ff3b5c" text-anchor="middle">Every Iteration</text>
+  </g>
+  
+  <text x="290" y="755" font-family="Courier New" font-size="16" fill="#4a6278" font-weight="bold">&gt;</text>
+
+  <g transform="translate(310, 730)">
+    <rect width="120" height="40" class="flow-box" style="stroke: #e06c75;" />
+    <text x="60" y="20" class="flow-txt" text-anchor="middle">buzzerTick()</text>
+    <text x="60" y="32" font-family="Courier New" font-size="9" fill="#4a6278" text-anchor="middle">Millis-based</text>
+  </g>
+
+  <text x="440" y="755" font-family="Courier New" font-size="16" fill="#4a6278" font-weight="bold">&gt;</text>
+
+  <g transform="translate(460, 730)">
+    <rect width="120" height="40" class="flow-box" style="stroke: #ffaa00;" />
+    <text x="60" y="20" class="flow-txt" text-anchor="middle">WiFi Watchdog</text>
+    <text x="60" y="32" font-family="Courier New" font-size="9" fill="#ffaa00" text-anchor="middle">Interval: 6s/30s</text>
+  </g>
+
+  <text x="590" y="755" font-family="Courier New" font-size="16" fill="#4a6278" font-weight="bold">&gt;</text>
+
+  <g transform="translate(610, 730)">
+    <rect width="140" height="40" class="flow-box" style="stroke: #00ff9d;" />
+    <text x="70" y="20" class="flow-txt" text-anchor="middle">Sensor Block</text>
+    <text x="70" y="32" font-family="Courier New" font-size="9" fill="#00ff9d" text-anchor="middle">Interval: 1000ms</text>
+  </g>
+
+  <g transform="translate(80, 810)">
+    <rect width="640" height="140" class="comp-box" style="fill: #111a2e; stroke: #00ff9d; stroke-dasharray: 4,4;" />
+    <text x="20" y="25" class="flow-txt" font-weight="bold" style="fill: #00ff9d;">Inside 1000ms Synchronous Window:</text>
+    
+    <rect x="20" y="45" width="130" height="70" class="flow-box" />
+    <text x="85" y="65" class="flow-txt" text-anchor="middle">1. Read Hardware</text>
+    <text x="85" y="85" font-family="Courier New" font-size="10" fill="#4a6278" text-anchor="middle">MAX30100 FIFO</text>
+    <text x="85" y="100" font-family="Courier New" font-size="10" fill="#4a6278" text-anchor="middle">MQ-2 / MPU6050</text>
+
+    <rect x="170" y="45" width="130" height="70" class="flow-box" />
+    <text x="235" y="65" class="flow-txt" text-anchor="middle">2. Eval Thresholds</text>
+    <text x="235" y="85" font-family="Courier New" font-size="10" fill="#ffaa00" text-anchor="middle">GAS &gt; 1800/2800</text>
+    <text x="235" y="100" font-family="Courier New" font-size="10" fill="#ff3b5c" text-anchor="middle">BPM Critical limits</text>
+
+    <rect x="320" y="45" width="130" height="70" class="flow-box" />
+    <text x="385" y="65" class="flow-txt" text-anchor="middle">3. Refresh Screen</text>
+    <text x="385" y="85" font-family="Courier New" font-size="10" fill="#00d4ff" text-anchor="middle">I2C Frame Buffer</text>
+    <text x="385" y="105" class="flow-crit" text-anchor="middle">yield(); // breathe</text>
+
+    <rect x="470" y="45" width="150" height="70" class="flow-box" />
+    <text x="545" y="65" class="flow-txt" text-anchor="middle">4. Network Broadcast</text>
+    <text x="545" y="85" font-family="Courier New" font-size="10" fill="#c9d6e3" text-anchor="middle">Async WebServer</text>
+    <text x="545" y="100" font-family="Courier New" font-size="10" fill="#00ff9d" text-anchor="middle">SSE JSON Event</text>
+  </g>
+
+  <text x="40" y="980" font-family="Courier New" font-size="11" fill="#4a6278">Notice: Explicit deployment of yield() prevents async TCP starvation during intensive multi-byte I2C data sequences.</text>
+</svg>

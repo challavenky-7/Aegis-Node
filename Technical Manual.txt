@@ -1,0 +1,125 @@
+---->📑 AEGIS NODE v5.0 — TECHNICAL MANUAL
+
+The Aegis Node v5.0 is an embedded biomedical and environmental safety tracking node powered by an ESP32 microcontroller.The device samples metrics in a non-blocking execution cycle and hosts a real-time monitoring web dashboard via an Asynchronous Server Sent Events (SSE) data pipeline.
+
+
+
+1. System Specifications & Thresholds
+
+The core firmeware monitors real-time measurements against safe limits.
+Crossing a threshold triggers physical and digital warning systems:Biometric Tolerances
+
+BPM Low Warning: Less than 50 BPM (Bradycardia warning)
+
+BPM High Warning: Greater than or equal to 110 BPM (Tachycardia warning)
+
+BPM Critical Danger: Greater than or equal to 130
+
+BPM (Severe heart rate spike)
+
+SpO2 Normal Range: 95% to 100% (Cardic card highlights green)
+
+Gas Density Ranges (12-bit ADC: 0 to 4095)
+
+GAS Warning Threshold: Greater than or equal to 1800 (Triggers "Open windows" alert)
+
+GAS Critical Threshold: Greater than or equal to 2800 (Triggers continuous buzzer and "Wear mask & evacuate" alarm)
+
+
+
+
+2. Hardware Assembly & Interconnect
+
+The node uses a shared I2C bus operating at 100 kHz for stability across multiple slaves, plus dedicated I/O channels.
+
+
+Master Wiring Register
+
+All peripheral devices must share a common ground with the ESP32 logic ground.
+
+
+Peripheral Device	Component Pin	ESP32 Target Pin	Signal / Protocol Type
+
+SSD1306 OLED		SDA		GPIO 21			I2C Data Line (Shared)
+			SCL		GPIO 22			I2C Clock Line (Shared)
+
+MAX30100 Oximeter	SDA		GPIO 21			I2C Data Line (Shared)	
+			SCL		GPIO 22			I2C Clock Line (Shared)
+
+MPU6050 Accelerometer	SDA		GPIO 21			I2C Data Line (Shared)
+			SCL		GPIO 22			I2C Clock Line (Shared)
+
+MQ-2 Gas Sensor		AOUT (Analog)	GPIO 34			ADC1 Input (WiFi-Safe Channel)
+
+Active Piezo Buzzer	Positive (+)	GPIO 25			DAC1 / Digital Output Channel
+
+All Modules Combined	VCC		3.3V 			PinPrimary Hardware Power Rail
+
+All Modules Combined	GND		GND Pin			System Common Reference Ground
+
+
+⚠️ Hardware Note: The MQ-2 sensor must be connected to an ADC1 channel (like GPIO 34).
+ Using pins on the ADC2 block will cause sensor read failures when WiFi transmission is active.
+
+
+3. Initial Commissioning & Boot Phase
+
+When you power up the Aegis Node via its micro-USB port, the system walks through an internal diagnostic routine:
+
+Serial Initialization: The chip boots up at 115200 Baud and launches a hardware check scan.
+
+I2C Bus Scan: The system checks the lines for peripheral addresses:
+	0x3C: Confirms SSD1306 OLED connection.
+	0x57: Confirms MAX30100 Pulse Oximeter connection.
+	0x68 / 0x69: Confirms MPU6050 Motion Sensor connection.
+
+Sensor Tuning: The pulse oximeter infra-red LED is automatically driven at 27.1 mA to prevent optical sensor saturation.
+
+Network Access: The device connects to the wireless Access Point SSID: Nani in non-blocking mode.
+
+
+
+4. Operational Behavior & Interface
+
+Once the boot checks pass, the device runs continuously using zero blocking delays.
+
+Reading the Built-in Screen
+
+The OLED display updates every 1000 milliseconds:
+
+	Line 1: System Header (=== AEGIS NODE ===)
+	Line 2: Heart rate data. Displays BPM or states place finger if the signal drops.
+	Line 3: Oxygen levels (SpO2: --%)
+	Line 4: Raw air index (Gas: XXXX)
+	Line 5: Live system flag (e.g., Status: OK, !! WEAR MASK !!, or !! SEEK HELP !!)
+	Line 6: Current network destination (Local IP address allocation, e.g., 192.168.1.50)
+
+
+---->Accessing the Web Dashboard:
+
+Connect your phone or computer to the same WiFi network (Nani).
+
+Open any web browser and type the IP address shown on the node's screen into the URL bar.
+
+The browser will pull the real-time telemetry page directly from the ESP32 flash storage, rendering instant waveform trends for your biometrics and gas density indicators.
+
+
+---->Safety Alert Indicator Matrix:
+
+
+Safety Status Code	Alarm Level	Physical Buzzer Action		Web Dashboard Visual State		Action Required
+Normal Operational
+Window                  LVL_OK (0)       Silent (Logic Low)		Green Accents / "Status: OK"		None. Normal monitoring mode.
+
+Warning Threshold 
+Tripped			LVL_WARN (1)	 Short 100 ms Pulse Beep	Orange Frame / Warning Banner		Check ventilation or rest if heart rate is high.
+
+Critical Hazard 
+State		        LVL_CRIT (2)	Continuous Tone (High)		Red Frame / Flashing Danger Alert	Evacuate area immediately or seek medical attention.
+
+
+
+
+
+
+
