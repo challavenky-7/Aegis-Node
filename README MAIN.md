@@ -1,3 +1,8 @@
+**Creators: Venkateswar Challa & Kuruba Saranya Sai Sree**
+
+
+
+
 # Aegis Node — Stable Firmware v5.0
 
 An advanced, non-blocking ESP32-based environmental and health monitoring hub. This system interfaces with multiple I2C and analog sensors to track biometrics and gas density, streaming metrics in real-time over an asynchronous web server.
