@@ -1,4 +1,14 @@
 /*
+
+Project: Aegis Node
+
+Creators: Venkateswar Challa & Kuruba Saranya Sai Sree
+
+Description: Real-time industrial safety wearable
+*/
+
+
+/*
  * ============================================================
  *  AEGIS NODE — Stable Firmware v5.0
  *  ESP32 + MAX30100 + MPU6050 + SSD1306 + MQ-2 + Buzzer
